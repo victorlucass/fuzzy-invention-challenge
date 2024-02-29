@@ -1,8 +1,9 @@
 import { createBrowserRouter } from "react-router-dom";
 import { AppLayout } from "../pages/_layout/app";
-import { AuthLayout } from "../pages/_layout/auth";
+import { LoginLayout } from "../pages/_layout";
 import { Feed } from "../pages/feed";
 import { ProtectedRoute } from "./protected";
+import { Welcome } from "../pages/welcome";
 
 export const routes = createBrowserRouter([
   {
@@ -12,6 +13,10 @@ export const routes = createBrowserRouter([
     children: [
       {
         path: "/",
+        element: <Welcome />,
+      },
+      {
+        path: "/feed",
         element: (
           <ProtectedRoute>
             <Feed />
@@ -22,6 +27,6 @@ export const routes = createBrowserRouter([
   },
   {
     path: "/login",
-    element: <AuthLayout />,
+    element: <LoginLayout />,
   },
 ]);
