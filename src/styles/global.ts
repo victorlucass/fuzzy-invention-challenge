@@ -9,7 +9,6 @@ export const GlobalStyle = createGlobalStyle`
 
   :focus {
     outline: transparent;
-    box-shadow: 0 0 0 2px ${(props) => props.theme.green300};
   }
 
   body {
@@ -29,6 +28,8 @@ export const GlobalStyle = createGlobalStyle`
 
   a {
     text-decoration: none;
+    color: ${(props) => props.theme.green300};
+    cursor: pointer;
   }
 
   /* custom scroll */
