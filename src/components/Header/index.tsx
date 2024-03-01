@@ -1,6 +1,6 @@
 import { NavLink, useNavigate } from "react-router-dom";
 import { HeaderContainer, HeaderContent } from "./styled";
-import { House, SignOut } from "phosphor-react";
+import { House, SignOut } from "@phosphor-icons/react";
 
 export function Header() {
   const navigate = useNavigate();

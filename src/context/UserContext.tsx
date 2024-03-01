@@ -1,4 +1,5 @@
-import { ReactNode, createContext, useState } from "react";
+import { jwtDecode } from "jwt-decode";
+import { ReactNode, createContext, useEffect, useState } from "react";
 
 interface ChildrenProps {
   children: ReactNode;
@@ -22,6 +23,14 @@ export function LoginContext({ children }: ChildrenProps) {
   const [userData, setUserData] = useState({});
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+
+  useEffect(() => {
+    if (window.localStorage.getItem("credential")) {
+      const decode = jwtDecode(window.localStorage.getItem("credential")!);
+      setCredential(window.localStorage.getItem("credential")!);
+      setUserData(decode);
+    }
+  }, []);
 
   return (
     <UserLoginContext.Provider

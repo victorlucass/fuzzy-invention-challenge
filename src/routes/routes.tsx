@@ -1,6 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
 import { AppLayout } from "../pages/_layout/app";
-import { LoginLayout } from "../pages/_layout";
+import { LoginLayout } from "../pages/_layout/login";
 import { Feed } from "../pages/feed";
 import { ProtectedRoute } from "./protected";
 import { Welcome } from "../pages/welcome";
