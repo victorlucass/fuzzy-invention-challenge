@@ -2,7 +2,7 @@ import { AvatarStyle } from "./styled";
 
 interface AvatarProps {
   src: string;
-  hasBorder: boolean;
+  hasBorder?: boolean;
 }
 
 export function Avatar({ src, hasBorder = true }: AvatarProps) {

@@ -1,6 +1,7 @@
 import {
   Author,
   AuthorInfo,
+  CommentList,
   PostArticle,
   PostContent,
   PostForm,
@@ -9,6 +10,7 @@ import { format, formatDistanceToNow } from "date-fns";
 import { ptBR } from "date-fns/locale/pt-BR";
 import { Avatar } from "../Avatar";
 import { useState } from "react";
+import { Comment } from "../Comment";
 
 export interface PostProps {
   author: {
@@ -55,6 +57,14 @@ export function Post({ author, content, publishedAt }: PostProps) {
     event: React.FocusEvent<HTMLTextAreaElement>
   ) {
     event.target.setCustomValidity("Campo está vazio!");
+  }
+
+  function deleteComment(comment: string) {
+    const commentsWithoutDeletedOne = comments.filter((resource) => {
+      return comment !== resource;
+    });
+
+    setComments(commentsWithoutDeletedOne);
   }
 
   const isNewCommentEmpty = newCommentText.length === 0;
@@ -110,6 +120,18 @@ export function Post({ author, content, publishedAt }: PostProps) {
             </button>
           </footer>
         </PostForm>
+
+        <CommentList>
+          {comments.map((comment) => {
+            return (
+              <Comment
+                key={comment}
+                content={comment}
+                onDeleteComment={deleteComment}
+              />
+            );
+          })}
+        </CommentList>
       </PostArticle>
     </>
   );

@@ -4,6 +4,7 @@ export const SidebarContainer = styled.aside`
   background: ${(props) => props.theme.gray800};
   border-radius: 8px;
   overflow: hidden;
+  max-height: 294px;
 `;
 
 export const Cover = styled.img`

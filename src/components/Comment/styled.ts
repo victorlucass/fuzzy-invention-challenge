@@ -10,6 +10,22 @@ export const CommentBox = styled.div`
   p {
     margin-top: 1rem;
   }
+  footer {
+    margin-top: 1rem;
+    button {
+      background: transparent;
+      border: 0;
+      color: var(--gray-400);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      border-radius: 2px;
+      font-size: 0.875rem;
+      strong {
+        margin-left: 0.5rem;
+      }
+    }
+  }
 `;
 
 export const CommentContent = styled.div`
