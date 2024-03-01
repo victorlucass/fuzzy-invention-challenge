@@ -9,10 +9,12 @@ import {
 import { format, formatDistanceToNow } from "date-fns";
 import { ptBR } from "date-fns/locale/pt-BR";
 import { Avatar } from "../Avatar";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Comment } from "../Comment";
+import { api } from "../../services/api";
 
 export interface PostProps {
+  id?: number;
   author: {
     avatarUrl: string;
     name: string;
@@ -25,17 +27,14 @@ export interface PostProps {
   publishedAt: Date;
 }
 
-export function Post({ author, content, publishedAt }: PostProps) {
-  const [comments, setComments] = useState(["Post bacana 🙀"]);
-  const [newCommentText, setNewCommentText] = useState("");
+interface CommentProps {
+  comment: string;
+  imgSrc: string;
+}
 
-  const publishedDateFormatted = format(
-    publishedAt,
-    "d 'de' LLLL 'às' HH:mm'h'",
-    {
-      locale: ptBR,
-    }
-  );
+export function Post({ author, content, publishedAt }: PostProps) {
+  const [comments, setComments] = useState<CommentProps[]>([]);
+  const [newCommentText, setNewCommentText] = useState("");
 
   const publishedDateRelativeNow = formatDistanceToNow(publishedAt, {
     locale: ptBR,
@@ -60,35 +59,33 @@ export function Post({ author, content, publishedAt }: PostProps) {
   }
 
   function deleteComment(comment: string) {
-    const commentsWithoutDeletedOne = comments.filter((resource) => {
-      return comment !== resource;
+    setComments((comments) => {
+      return comments.filter((resource) => {
+        return resource.comment !== comment;
+      });
     });
-
-    setComments(commentsWithoutDeletedOne);
   }
 
   const isNewCommentEmpty = newCommentText.length === 0;
+
+  useEffect(() => {
+    api.get("/comments").then((response) => {
+      setComments(response.data);
+    });
+  }, []);
 
   return (
     <>
       <PostArticle>
         <header>
           <Author>
-            <Avatar
-              hasBorder
-              src="https://lh3.googleusercontent.com/a/ACg8ocLQ5ZM3nlo7DqGaT9wlboyXoi_J88a2SeEm63UwRQGu9Bw=s96-c"
-            />
+            <Avatar src={author.avatarUrl} />
             <AuthorInfo>
               <strong>{author.name}</strong>
               <span> {author.role}</span>
             </AuthorInfo>
           </Author>
-          <time
-            title={publishedDateFormatted}
-            dateTime={publishedAt.toISOString()}
-          >
-            {publishedDateRelativeNow}
-          </time>
+          <span>{publishedDateRelativeNow}</span>
         </header>
         <PostContent>
           {content.map((line) => {
@@ -122,13 +119,13 @@ export function Post({ author, content, publishedAt }: PostProps) {
         </PostForm>
 
         <CommentList>
-          {comments.map((comment) => {
+          {comments.map((item: CommentProps) => {
             return (
               <Comment
-                key={comment}
-                content={comment}
+                key={item.comment}
+                content={item.comment}
                 onDeleteComment={deleteComment}
-                src="https://github.com/diego3g.png"
+                src={item.imgSrc}
               />
             );
           })}

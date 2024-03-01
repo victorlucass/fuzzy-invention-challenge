@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Avatar } from "../Avatar";
 import {
   AuthorAndTime,
@@ -7,6 +7,7 @@ import {
   CommentContent,
 } from "./styled";
 import { ThumbsUp, Trash } from "@phosphor-icons/react";
+import { UserLoginContext } from "../../context/UserContext";
 
 interface CommentProps {
   content: string;
@@ -16,8 +17,7 @@ interface CommentProps {
 
 export function Comment({ content, src, onDeleteComment }: CommentProps) {
   const [likeAcount, setLikeAcount] = useState(0);
-
-  // Functions
+  const { userData } = useContext(UserLoginContext);
 
   function handleDeleteComment() {
     onDeleteComment(content);
@@ -33,16 +33,16 @@ export function Comment({ content, src, onDeleteComment }: CommentProps) {
 
   return (
     <CommentContainer>
-      <Avatar hasBorder={false} src={src} />
+      <Avatar src={src} />
 
       <CommentBox>
         <CommentContent>
           <header>
             <AuthorAndTime>
               <strong>
-                Victor Lucas <span>(você)</span>
+                {userData.name} <span>(você)</span>
               </strong>
-              <time title="11 de Maio às 08:13h" dateTime="2022-05-11 08:13:00">
+              <time title="11 de Maio às 08:13h" dateTime="2024-03-01 08:13:00">
                 Cerca de 1h atrás
               </time>
             </AuthorAndTime>

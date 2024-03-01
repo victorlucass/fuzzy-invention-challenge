@@ -12,7 +12,6 @@ import { Avatar } from "../Avatar";
 
 export function Sidebar() {
   const { userData } = useContext(UserLoginContext);
-  console.log(userData);
   return (
     <SidebarContainer>
       <Cover src="https://images.unsplash.com/photo-1659535836241-9901856696b0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=50" />
