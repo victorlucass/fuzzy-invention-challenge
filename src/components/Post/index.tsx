@@ -128,6 +128,7 @@ export function Post({ author, content, publishedAt }: PostProps) {
                 key={comment}
                 content={comment}
                 onDeleteComment={deleteComment}
+                src="https://github.com/diego3g.png"
               />
             );
           })}

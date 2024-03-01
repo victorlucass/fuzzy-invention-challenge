@@ -10,10 +10,11 @@ import { ThumbsUp, Trash } from "@phosphor-icons/react";
 
 interface CommentProps {
   content: string;
+  src: string;
   onDeleteComment: (comment: string) => void;
 }
 
-export function Comment({ content, onDeleteComment }: CommentProps) {
+export function Comment({ content, src, onDeleteComment }: CommentProps) {
   const [likeAcount, setLikeAcount] = useState(0);
 
   // Functions
@@ -32,7 +33,7 @@ export function Comment({ content, onDeleteComment }: CommentProps) {
 
   return (
     <CommentContainer>
-      <Avatar hasBorder={false} src="https://github.com/victorlucass.png" />
+      <Avatar hasBorder={false} src={src} />
 
       <CommentBox>
         <CommentContent>
